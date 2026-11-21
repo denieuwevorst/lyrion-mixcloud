@@ -24,6 +24,7 @@ my $log = Slim::Utils::Log->addLogCategory({
 my $prefs = preferences('plugin.mixclouddirect');
 
 use constant PAGE => 50;
+use constant FOLLOWED_FEED_URL => 'mcdirect://followed';
 
 sub initPlugin {
 	my $class = shift;
@@ -32,6 +33,11 @@ sub initPlugin {
 
 	Slim::Player::ProtocolHandlers->registerHandler(
 		mcdirect => 'Plugins::MixcloudDirect::ProtocolHandler'
+	);
+
+	# A saved link resolves through Formats::XML, not a changing menu index.
+	Slim::Player::ProtocolHandlers->registerURLHandler(
+		qr{^mcdirect://followed$}, __PACKAGE__
 	);
 
 	if (main::WEBUI) {
@@ -429,7 +435,7 @@ sub followedMenu {
 			{
 				name  => cstring($client, 'PLUGIN_MIXCLOUDDIRECT_NEW_FROM_FOLLOWED'),
 				type  => 'link',
-				url   => \&followedFeed,
+				url   => FOLLOWED_FEED_URL,
 				image => _icon('new_releases'),
 			},
 			map {
@@ -449,6 +455,15 @@ sub followedMenu {
 
 use constant FEED_PER_USER => 10;
 use constant FEED_MAX      => 100;
+
+# Formats::XML uses this handler to reopen the favourite as a browsable feed.
+sub explodePlaylist {
+	my ($class, $client, $url, $cb) = @_;
+	followedFeed($client, sub {
+		my $feed = shift;
+		$cb->({ %$feed, type => 'opml', title => cstring($client, 'PLUGIN_MIXCLOUDDIRECT_NEW_FROM_FOLLOWED') });
+	});
+}
 
 # Latest uploads from everyone followed, newest first
 sub followedFeed {

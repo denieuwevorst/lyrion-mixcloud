@@ -36,7 +36,12 @@ isn't sent to Mixcloud and doesn't appear in the Mixcloud app.
   follow, from your public profile. Enter your username once, in the menu or in settings.
 - **Followed**: tap **Follow in Lyrion** on any DJ or station page, then open
   **New from People You Follow** for their latest uploads, newest first. Unfollow sits at the
-  bottom of their page.
+  bottom of their page. To pin the feed in Lyrion's **Favourites**, open the menu for the
+  **New from People You Follow** row (in Material Skin, **⋮**) and choose **Save to
+  Favourites**. Save the feed row, not a show inside it. Opening the favourite uses your
+  current **Follow in Lyrion** list, even after a server restart; it isn't a snapshot.
+  Uploads are cached for up to 15 minutes. This favourite is a browsable feed, not a
+  Mixcloud account favourite.
 - **Live streams**: when a DJ or station is broadcasting on Mixcloud Live, a **Live now** entry
   appears on their page and at the top of **Followed**, and pasted `mixcloud.com/live/…` links
   play. Audio only, 320 kbps AAC, played like a radio station (no seeking). Live streams work
@@ -106,7 +111,7 @@ docker restart mixcloud-lms      # reload after editing Perl (then rerun test-pl
 docker logs -f mixcloud-lms      # plugin logs at INFO
 ./scripts/test-player.sh         # headless player for CLI testing (plays faster than real time)
 ./scripts/lms.sh 00:11:22:33:44:66 '["mixclouddirect","items",0,10]'   # browse via JSON-RPC
-prove tests/                     # unit tests: URL decoding, HLS parsing, TS and fMP4 demux, ADTS
+prove tests/                     # URL decoding, HLS/demux/ADTS, dynamic followed-feed favourites
 python3 scripts/smoke.py         # do Mixcloud's services still behave as assumed? (weekly in CI)
 python3 scripts/icon.py          # regenerate the icons
 ./scripts/serve-lan.sh           # serve a build to a Lyrion server on your LAN, no GitHub needed
