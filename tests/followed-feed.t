@@ -68,12 +68,14 @@ sub feed_row {
 
 my $row = feed_row();
 ok($row, 'followed feed can be saved as a native favourite');
-is($row->{type}, 'link', 'favourite is browsable, not an audio show');
+is($row->{type}, 'playlist', 'feed collection receives native LMS preset and context actions');
+is($row->{favorites_type}, 'link', 'favourite is saved as a browse link, not an audio show');
 ok(!$row->{play}, 'feed row does not override native link playback handling');
+ok(!$row->{on_select}, 'opening the feed does not become touch-to-play');
 ok(!ref($row->{url}), 'feed URL is serializable for plain-list clients too');
 
 # Persist just the fields LMS saves, without a callback, menu position or user list.
-my $saved = { url => $row->{url}, type => $row->{type}, name => $row->{name} };
+my $saved = { url => $row->{url}, type => $row->{favorites_type}, name => $row->{name} };
 my $handler = Slim::Player::ProtocolHandlers->handlerForURL($saved->{url});
 is($handler, $plugin, 'saved URL selects the feed resolver');
 is(Slim::Player::ProtocolHandlers->handlerForURL('mcdirect://alice/show'),

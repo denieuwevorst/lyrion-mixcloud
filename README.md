@@ -37,11 +37,12 @@ isn't sent to Mixcloud and doesn't appear in the Mixcloud app.
 - **Followed**: tap **Follow in Lyrion** on any DJ or station page, then open
   **New from People You Follow** for their latest uploads, newest first. Unfollow sits at the
   bottom of their page. To pin the feed in Lyrion's **Favourites**, open the menu for the
-  **New from People You Follow** row (in Material Skin, **⋮**) and choose **Save to
-  Favourites**. Save the feed row, not a show inside it. Opening the favourite uses your
+  **New from People You Follow** row (in Material Skin, **⋮ → More → Save to
+  Favourites**). Save the feed row, not a show inside it. Opening the favourite uses your
   current **Follow in Lyrion** list, even after a server restart; it isn't a snapshot.
   Uploads are cached for up to 15 minutes. This favourite is a browsable feed, not a
-  Mixcloud account favourite.
+  Mixcloud account favourite. The feed's menu also offers Play/Add for its current
+  shows; tapping the row itself still opens the feed.
 - **Live streams**: when a DJ or station is broadcasting on Mixcloud Live, a **Live now** entry
   appears on their page and at the top of **Followed**, and pasted `mixcloud.com/live/…` links
   play. Audio only, 320 kbps AAC, played like a radio station (no seeking). Live streams work

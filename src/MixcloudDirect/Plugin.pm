@@ -434,7 +434,10 @@ sub followedMenu {
 			(map { _liveItem($client, $lives->{lc $_}) } grep { $lives->{lc $_} && $lives->{lc $_}{live} } @users),
 			{
 				name  => cstring($client, 'PLUGIN_MIXCLOUDDIRECT_NEW_FROM_FOLLOWED'),
-				type  => 'link',
+				# LMS gives collections presetParams and context actions; a
+				# plain link has neither in Material. Save it as a browse link.
+				type  => 'playlist',
+				favorites_type => 'link',
 				url   => FOLLOWED_FEED_URL,
 				image => _icon('new_releases'),
 			},
